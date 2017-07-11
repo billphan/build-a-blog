@@ -1,12 +1,28 @@
-<!doctype html>
-<html>
-    <head>
-        <title>{{title}}</title>
-    </head>
-<body>
+<!DOCTYPE html>
 
+<html>
+
+  <head>
+
+    <title>{{title}}</title>
+
+    <style>
+      .error {
+        color:red;
+        display: inline-block
+      }
+    </style>
+
+  </head>
+
+  <body>
+
+    <div>
+        <a href="/blog">Main Blog Page</a>
+        <a href="/newpost">Add a Blog Entry</a>
+    </div>
     {% block content %}
     {% endblock %}
+  </body>
 
-</body>
 </html>
