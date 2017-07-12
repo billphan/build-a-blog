@@ -132,15 +132,15 @@ input[type=submit] {
   color: #fff;
   width: 100%;
   border: 0 none;
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
   font-weight: 400;
-  padding: 15px 15px;
+  padding: 10px 0px;
   border-radius: 10px;
-  letter-spacing: 5px;
+  /*letter-spacing: 5px;*/
   background: #95c76f;
   visibility: visible;
-  text-transform: uppercase;
+  /*text-transform: uppercase;*/
   -webkit-border-radius: 5px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
