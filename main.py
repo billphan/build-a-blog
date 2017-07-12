@@ -7,6 +7,7 @@
 # importing necessary modules + session + flask?
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
+# importing datetime for bonus in reverse ordering blog posts
 from datetime import datetime
 from sqlalchemy import desc
 
@@ -20,13 +21,13 @@ db = SQLAlchemy(app)
 # generated random secret_key
 app.secret_key = 'xfd{H\xe5<\xf9\x6a2\xa0\x9fR"\xa1\xa8'
 
-# blog persistent class
+# creating blog persistent class
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(1200))
     pub_date = db.Column(db.DateTime)
-
+    # initializer or constructor for blog class
     def __init__(self, title, body, pub_date=None):
         self.title = title
         self.body = body
@@ -49,12 +50,12 @@ def index():
     else:
         return render_template('blog.html', title="Build A Blog", blogs = blogs)
 
-# app route to new post page
+# handler route to new post page.
 @app.route('/post')
 def new_post():
     return render_template('post.html', title="Add New Blog Entry")
 
-# validating post title & body
+# handler route to validate post title & body fields
 @app.route('/post', methods=['POST'])
 def verify_post():
     blog_title = request.form['title']
@@ -62,12 +63,13 @@ def verify_post():
     title_error = ''
     body_error = ''
 
-    # validation messages
+    # error validation messages
     if blog_title == "":
         title_error = "Title required."
     if blog_body == "":
         body_error = "Content required."
 
+    # add new blog post and commit it to table with new id.
     if not title_error and not body_error:
         new_blog = Blog(blog_title, blog_body)
         db.session.add(new_blog)
@@ -76,6 +78,7 @@ def verify_post():
         # user case #2 send user to individual entry page after posting.
         return redirect('/blog?id={0}'.format(blog))
     else:
+        # return user to post page with errors.
         return render_template('post.html', title="Add New Blog Entry", blog_title = blog_title, blog_body = blog_body, title_error = title_error, body_error = body_error)
 
 if __name__ == '__main__':
