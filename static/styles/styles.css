@@ -7,6 +7,11 @@
   background: #95c76f;
 }
 
+.error {
+  color: red;
+  display: inline-block;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -18,11 +23,12 @@ html, body {
   padding: 0;
   height: 100%;
   font-size: 16px;
+  line-height: 1.5;
   min-height: 100vh;
   position: relative;
   rgba(255,255,255,0.1);
   background-color: #f5f5f5;
-  font: 100%/1.5 -apple-system, BlinkMacSystemFont,SF UI, Helvetica Neue, sans-serif;
+  font: -apple-system, BlinkMacSystemFont,SF UI, Helvetica Neue, sans-serif;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -137,10 +143,8 @@ input[type=submit] {
   font-weight: 400;
   padding: 10px 0px;
   border-radius: 10px;
-  /*letter-spacing: 5px;*/
   background: #95c76f;
   visibility: visible;
-  /*text-transform: uppercase;*/
   -webkit-border-radius: 5px;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -170,9 +174,4 @@ input[type=submit]:hover {
   font-size: 14px;
   padding: 25px 0px;
   text-align: center;
-}
-
-.error {
-  color:red;
-  display: inline-block
 }
