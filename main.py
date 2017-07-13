@@ -18,11 +18,12 @@ app.config['DEBUG'] = True
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://build-a-blog:buildablog@localhost:8889/build-a-blog'
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
-# generated random secret_key
+# randomly generated secret_key
 app.secret_key = 'xfd{H\xe5<\xf9\x6a2\xa0\x9fR"\xa1\xa8'
 
 # creating blog persistent class
 class Blog(db.Model):
+    # necessary properties
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(1200))
@@ -31,6 +32,7 @@ class Blog(db.Model):
     def __init__(self, title, body, pub_date=None):
         self.title = title
         self.body = body
+        # pub_date for reverse ordering posts
         if pub_date is None:
             pub_date = datetime.utcnow()
         self.pub_date = pub_date
@@ -38,6 +40,7 @@ class Blog(db.Model):
 # route to main blog page
 @app.route('/blog')
 def index():
+    # args getting id dictionary element from table
     blog_id = request.args.get('id')
     blogs = Blog.query.all()
 
@@ -45,7 +48,7 @@ def index():
         post = Blog.query.get(blog_id)
         blog_title = post.title
         blog_body = post.body
-        # user case #1 send user to individual entry page.
+        # Use Case 1: Click on a blog entry's title on the main page and go to a blog's individual entry page.
         return render_template('entry.html', title="Blog Entry #" + blog_id, blog_title = blog_title, blog_body = blog_body)
     else:
         return render_template('blog.html', title="Build A Blog", blogs = blogs)
@@ -63,7 +66,7 @@ def verify_post():
     title_error = ''
     body_error = ''
 
-    # error validation messages
+    # error validation messages, if blog/title is empty return error text.
     if blog_title == "":
         title_error = "Title required."
     if blog_body == "":
@@ -75,7 +78,7 @@ def verify_post():
         db.session.add(new_blog)
         db.session.commit()
         blog = new_blog.id
-        # user case #2 send user to individual entry page after posting.
+        # Use Case 2: After adding a new blog post, instead of going back to the main page, we go to that blog post's individual entry page. Redirect to specific blog id page.
         return redirect('/blog?id={0}'.format(blog))
     else:
         # return user to post page with errors.
