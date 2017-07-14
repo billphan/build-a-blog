@@ -6,12 +6,11 @@
         <h1 class="post-header">New Post</h1>
 
         <form method='post'>
-
-          <label for="title">Title:</label><br>
-          <input type="text" name="title" value='{{blog_title}}'/>
+          <!-- <label for="title">Title:</label><br> -->
+          <input type="text" name="title" value='{{blog_title}}' placeholder="Your Title Here"/>
           <p class="error">{{title_error}}</p><br><br>
 
-          <textarea type="text" name="body" placeholder="Your text here">{{blog_body}}</textarea>
+          <textarea type="text" name="body" placeholder="Your Text Here">{{blog_body}}</textarea>
           <p class="error">{{body_error}}</p><br>
 
           <input type="submit" value="Post"/>
