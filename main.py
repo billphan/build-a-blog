@@ -29,17 +29,25 @@ class Blog(db.Model):
     body = db.Column(db.String(1200))
     pub_date = db.Column(db.DateTime)
     # initializer or constructor for blog class
-    def __init__(self, title, body, pub_date=None):
+    def __init__(self, title, body):
         self.title = title
         self.body = body
         # pub_date for reverse ordering posts
-        if pub_date is None:
-            pub_date = datetime.utcnow()
-        self.pub_date = pub_date
+        self.pub_date = datetime.utcnow()
+
+    def is_valid(self):
+        if self.title and self.body and self.pub_date:
+            return True
+        else:
+            return False
+
+@app.route('/')
+def index():
+    return redirect('/blog')
 
 # route to main blog page
 @app.route('/blog')
-def index():
+def blog_index():
     # args getting id dictionary element from table
     blog_id = request.args.get('id')
     blogs = Blog.query.all()
@@ -49,9 +57,18 @@ def index():
         blog_title = post.title
         blog_body = post.body
         # Use Case 1: Click on a blog entry's title on the main page and go to a blog's individual entry page.
-        return render_template('entry.html', title="Blog Entry #" + blog_id, blog_title = blog_title, blog_body = blog_body)
+        return render_template('entry.html', title="Blog Entry #" + blog_id, blog_title=blog_title, blog_body=blog_body)
+
+    # TODO - Sort posts from newest to oldest
+    sort = request.args.get('sort')
+
+    if (sort=="newest"):
+        blogs = Blog.query.order_by(Blog.pub_date.desc()).all()
+    elif (sort=="oldest"):
+        blogs = Blog.query.order_by(Blog.pub_date.asc()).all()
     else:
-        return render_template('blog.html', title="Build A Blog", blogs = blogs)
+        blogs = Blog.query.all()
+    return render_template('blog.html', title="Build A Blog", blogs=blogs)
 
 # handler route to new post page.
 @app.route('/post')
