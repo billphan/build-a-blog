@@ -31,23 +31,18 @@
       <div class="header">
 
         <h1 class="title"><a href="/blog">Build a Blog</a></h1>
-        <a href="/post">Add New Entry</a>
+        <a href="/post" class="left">Add New Post</a>
+        <a href="/blog?sort=oldest" class="right">Oldest</a>
+        <a href="/blog?sort=newest" class="right newest">Newest</a>
 
       </div>
       {% block content %}
       {% endblock %}
-      <div class="footer">
-
+      <!-- <div class="footer">
         <p>Created using Python &amp; Flask by Bill Phan</p>
-
-      </div>
+      </div> -->
 
     </div>
-    <!-- INTERACTIVE WORLD SCRIPT -->
-    <!-- <div id="world"></div>
-    <script async src="//genius.codes"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts/world.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='scripts/world.min.js') }}"></script> -->
 
   </body>
 
