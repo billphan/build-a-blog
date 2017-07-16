@@ -195,3 +195,11 @@ input[type=submit]:hover {
   padding: 25px 0px;
   text-align: center;
 }*/
+
+@media (max-width:720px) {
+
+  .container {
+    width: 95%;
+  }
+
+}
