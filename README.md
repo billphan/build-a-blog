@@ -80,5 +80,6 @@ The app must meet several requirements:
 * **"/"** - GET: redirect to "/blog"
 * **"/blog"** - GET: Display list of all entries with default sort order (oldest-first)
 * **"/blog?sort=newest"** - GET: Display list of all entries newest-first
-* **"/blog?entry=ID"** GET: Display entry with id=ID
-* **"/new_entry"** - GET: Display new entry form; POST: Process new entry
+* **"/blog?sort=oldest"** - GET: Display list of all entries oldest-first
+* **"/blog?id=#"** GET: Display entry with id=ID
+* **"/post"** - GET: Display new entry form; POST: Process new entry
