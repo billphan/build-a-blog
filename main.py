@@ -27,16 +27,16 @@ class Blog(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(1200))
-    pub_date = db.Column(db.DateTime)
+    created = db.Column(db.DateTime)
     # initializer or constructor for blog class
     def __init__(self, title, body):
         self.title = title
         self.body = body
-        # pub_date for reverse ordering posts
-        self.pub_date = datetime.utcnow()
+        # created date for reverse ordering posts
+        self.created = datetime.utcnow()
 
     def is_valid(self):
-        if self.title and self.body and self.pub_date:
+        if self.title and self.body and self.created:
             return True
         else:
             return False
@@ -63,9 +63,9 @@ def blog_index():
     sort = request.args.get('sort')
 
     if (sort=="newest"):
-        blogs = Blog.query.order_by(Blog.pub_date.desc()).all()
+        blogs = Blog.query.order_by(Blog.created.desc()).all()
     elif (sort=="oldest"):
-        blogs = Blog.query.order_by(Blog.pub_date.asc()).all()
+        blogs = Blog.query.order_by(Blog.created.asc()).all()
     else:
         blogs = Blog.query.all()
     return render_template('blog.html', title="Build A Blog", blogs=blogs)
